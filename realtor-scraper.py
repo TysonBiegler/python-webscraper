@@ -10,17 +10,20 @@ import re
 # print("What state?")
 # state = input(">").upper()
 # print(f'Searching for houses in {city}, {state}')
-
-city = input("What city would you like to search in?: ")
-if not re.match('^[A-Za-z]*$', city):
-    print('Error! Only letters a-z allowed.')
-        
-state = input(f'what state is {city} in?: ')
-if not re.match('^[A-Za-z]*$', state):
-    print('Error! Only letters a-z allowed.')
-elif len(state)>2:
-    print('Error! Only 2 Characters allowed!')
-print(f'Looking for houses in {city}, {state}.')
+if 0:
+    city = input("What city would you like to search in?: ")
+    if not re.match('^[A-Za-z]*$', city):
+        print('Error! Only letters a-z allowed.')
+            
+    state = input(f'what state is {city} in?: ')
+    if not re.match('^[A-Za-z]*$', state):
+        print('Error! Only letters a-z allowed.')
+    elif len(state)>2:
+        print('Error! Only 2 Characters allowed!')
+    print(f'Looking for houses in {city}, {state}.')
+else:
+    city = 'Beaverton'
+    state = 'OR'
 
 #curl command from realtor that was translated into PYTHON
 headers = {
@@ -66,7 +69,7 @@ json_data = {
                 'last_view_timestamp': -1,
             },
         },
-        'limit':41,
+        'limit':200,
         'offset': 0,
         'zohoQuery': {
             'silo': 'search_result_page',
@@ -107,31 +110,10 @@ json_data = {
 
 response = requests.post('https://www.realtor.com/api/v1/hulk_main_srp', params=params, headers=headers, json=json_data)
 
-result_items = response.json()['data']['home_search']['results']
-
-
-#----------------------Address info
-#street_address
-result_items[0]['location']['address']['line']
-#city
-result_items[0]['location']['address']['city']
-#state
-result_items[0]['location']['address']['state_code']
-#zip_code
-result_items[0]['location']['address']['postal_code']
-
-#home_type
-result_items[0]['description']['type']
-#year_built
-result_items[0]['description']['year_built']
-#bedrooms
-result_items[0]['description']['beds']
-#bathrooms
-result_items[0]['description']['baths']
-#sq_foot
-result_items[0]['description']['lot_sqft']
-#price
-result_items[0]['list_price']
+result_items = response.json()['data']['home_search']
+print(f'count: {result_items["count"]}')
+print(f'total: {result_items["total"]}')
+result_items = result_items['results']
 
 # address = (f'{street_address} {city} {state}, {zip_code}')
 # print(address)
@@ -175,5 +157,5 @@ for result in result_items:
         price.append('')
 
 df_realtor = pd.DataFrame({'Home Type': home_type, 'Year Built': year_built, 'Address': address, 'Bedrooms': bedrooms, 'Bathrooms': bathrooms, 'Square Feet': sq_foot, 'Price': price})
-print(df_realtor)
+#print(df_realtor)
 #df_realtor.to_csv(r'C:\Users\tyson\Documents\Webdev Portfolio\Python\webscraper\csv\realtor_data.csv', header=True)
