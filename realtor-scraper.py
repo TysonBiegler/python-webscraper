@@ -10,30 +10,23 @@ import re
 # print("What state?")
 # state = input(">").upper()
 # print(f'Searching for houses in {city}, {state}')
-if 0:
-    city = input("What city would you like to search in?: ")
-    if not re.match('^[A-Za-z]*$', city):
-        print('Error! Only letters a-z allowed.')
-            
-    state = input(f'what state is {city} in?: ')
-    if not re.match('^[A-Za-z]*$', state):
-        print('Error! Only letters a-z allowed.')
-    elif len(state)>2:
-        print('Error! Only 2 Characters allowed!')
-    print(f'Looking for houses in {city}, {state}.')
-else:
-    city = 'Beaverton'
-    state = 'OR'
 
-#curl command from realtor that was translated into PYTHON
+city = input("City?: ")
+if not re.match('^[A-Za-z]*$', city):
+    print('Error! Only letters a-z allowed.')
+        
+state = input(f'Two Character State?: ')
+if not re.match('^[A-Za-z]*$', state):
+    print('Error! Only letters a-z allowed.')
+elif len(state)>2:
+    print('Error! Only 2 Characters allowed!')
+print(f'Looking for houses in {city}, {state}.')
+
+
 headers = {
     'authority': 'www.realtor.com',
     'accept': 'application/json',
     'accept-language': 'en-US,en;q=0.9',
-    # Already added when you pass json=
-    # 'content-type': 'application/json',
-    # Requests sorts cookies= alphabetically
-    # 'cookie': 'split=n; split_tcv=112; __vst=1ae3a798-c7a2-4fd6-bc2a-b84aec36420f; __ssn=2be76bf7-9bec-41d5-80fe-ad5dccd95956; __ssnstarttime=1656371226; threshold_value=14; automation=false; clstr=; clstr_tcv=; __edwssnstarttime=1656371227; __split=54; bcc=false; bcvariation=SRPBCRR%3Av1%3Adesktop; s_ecid=MCMID%7C60448848225504571971823027342865190689; G_ENABLED_IDPS=google; AMCVS_8853394255142B6A0A4C98A4%40AdobeOrg=1; _fbp=fb.1.1656371230679.1994552756; pxcts=e080b0a3-f66d-11ec-a314-77496f485a55; _pxvid=e080a595-f66d-11ec-a314-77496f485a55; __fp=837a8a8aee2ccdcf813605eddb237b99; g_state={"i_t":1656457634099,"i_l":0}; user_activity=return; userStatus=return_user; _rdc-next_session=ZWwvZkpxOFhhMnFZN3lKT1NvaTY2VFNGeUk4S0hNR3M2MWVTWlorMmhSaGZOOWZERTAxU2p1MExvMkZHY1k3MElMMzhrTnJ1V0xaUjVDSXN1U2Mvcy9OSkgweEpFTGFxL1VEMTM5eEFGdC8xRjk2ZXJQVzZFalFLWmdPUksxSzhTTjVWbGxFZEJsZjB5VVc3ckNLUnEwV1p1Zjl0OUF3eHNQaVpSa0RkUmlnRFgwdzZpa1ZjdEJaem9QcnlVY0p0dW9SYWVRZVNDbDUyeGx5N2ZmaFNUa3VLZVlMSTRHUlIveFo1MWZNYjR3NUt6anZwU1U0UU1nQ1dUZDNQd2NCQy0tU2lUWHhEbUFRSWxpaUI1NWpkV1FGUT09--6ef7522c91ac8ee16cc587cffaef24d12c41ddcc; srchID=f8838c24f07b4dafa02bd1435eaac82a; criteria=pg%3D1%26sprefix%3D%252Frealestateandhomes-search%26area_type%3Dcity%26search_type%3Dcity%26city%3DBeaverton%26state_code%3DOR%26state_id%3DOR%26lat%3D45.477764%26long%3D-122.8168974%26county_fips%3D41067%26county_fips_multi%3D41067%26loc%3DBeaverton%252C%2520OR%26locSlug%3DBeaverton_OR%26county_needed_for_uniq%3Dfalse; last_ran=-1; AMCV_8853394255142B6A0A4C98A4%40AdobeOrg=-1124106680%7CMCIDTS%7C19171%7CMCMID%7C60448848225504571971823027342865190689%7CMCAID%7CNONE%7CMCOPTOUT-1656457737s%7CNONE%7CvVersion%7C5.2.0; _px3=bff4a4fe793afeab79ba705576d7a30c8d203a9fd74de0f0b6e68cf6a56e776a:K4y4T/AZ9X3DsF2yMR0ZgMn4YqZyVWl+p9uW/uSEsSffWD/OiCutdLR+P3Cs1sCrjKATMcyaANB5/N9RF+wirw==:1000:dN+xBAPNb3QeS4gUCqNmWgmH04dKl0XFJFQjFWHbkYYcEJFP6Ni/sU8wP1gc96sUNEvSNiOdIZjmAK3h/CHzFMsGmdi7mBBMmvbJLQ8ed1kV2F35oXjhdZU16G2NNSquagQn9SJzTZ9iKf0gq83igbOtibasU3mKl6gGtwo4ouRxcMbVHAsfTpRuORtNSme08aqySOxwE3E9ZPAqkSzsdw==; last_ran_threshold=1656450679799',
     'origin': 'https://www.realtor.com',
     'referer': (f'https://www.realtor.com/realestateandhomes-search/{city}_{state}'),
     'sec-fetch-dest': 'empty',
@@ -115,8 +108,6 @@ print(f'count: {result_items["count"]}')
 print(f'total: {result_items["total"]}')
 result_items = result_items['results']
 
-# address = (f'{street_address} {city} {state}, {zip_code}')
-# print(address)
 
 home_type = []
 year_built = []
@@ -158,4 +149,4 @@ for result in result_items:
 
 df_realtor = pd.DataFrame({'Home Type': home_type, 'Year Built': year_built, 'Address': address, 'Bedrooms': bedrooms, 'Bathrooms': bathrooms, 'Square Feet': sq_foot, 'Price': price})
 #print(df_realtor)
-#df_realtor.to_csv(r'C:\Users\tyson\Documents\Webdev Portfolio\Python\webscraper\csv\realtor_data.csv', header=True)
+df_realtor.to_csv(r'C:\Users\tyson\Documents\Webdev Portfolio\Python\webscraper\csv\realtor_data.csv', header=True)

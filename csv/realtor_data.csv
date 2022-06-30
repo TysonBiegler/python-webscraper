@@ -1,42 +1,201 @@
 ,Home Type,Year Built,Address,Bedrooms,Bathrooms,Square Feet,Price
-0,single_family,1956,13470 SW Far Vista Dr,3,2,68389.0,525000
-1,single_family,2007,7085 SW Kelsi Ter,4,4,5227.0,885000
-2,single_family,2002,17469 SW Arbutus Dr,5,5,17424.0,1349000
-3,single_family,1978,17585 NW Autumn Ridge Dr,3,2,7405.0,600000
-4,single_family,1963,13550 SW 22nd St,3,2,6970.0,575000
-5,single_family,1996,16918 SW Steele Way,3,3,2178.0,429000
-6,single_family,2020,9537 SW 171st Ave,5,4,4356.0,790000
-7,single_family,1952,965 SW Murray Blvd,3,2,26136.0,600000
-8,single_family,2021,18421 SW Sugarloaf Ln,4,3,3920.0,680000
-9,single_family,2017,15910 SW Nora Rd,5,5,54886.0,1650000
-10,single_family,1998,19072 SW Christopher Dr,3,3,3920.0,499000
-11,single_family,1956,5545 SW Dover Ln,3,2,10019.0,719000
-12,single_family,1978,16385 SW Wright St,3,2,7841.0,590000
-13,condos,1974,1605 NW Bridgeway Ln,3,3,,365000
-14,single_family,1988,16680 NW Meadow Grass Ct,3,2,6098.0,590000
-15,single_family,1991,1422 SW 178th Ave,3,2,5227.0,525000
-16,single_family,1972,3885 SW 196th Ave,3,1,7841.0,500000
-17,townhomes,2001,15934 SW Roth Dr,3,3,2178.0,409000
-18,single_family,2022,12243 SW Strobel Rd,3,3,3986.0,795200
-19,single_family,2022,12239 SW Strobel Rd,3,3,4361.0,842510
-20,single_family,2002,224 NW Prescott Pl,3,3,1742.0,425000
-21,single_family,1949,110 SW 139th Ave,3,1,6098.0,449500
-22,single_family,1993,16507 SW Timberland Dr,4,4,9583.0,839000
-23,single_family,2005,17959 SW Camas St,2,3,3049.0,429900
-24,single_family,1977,9120 SW Pony Pl,3,2,14375.0,650000
-25,single_family,1987,2260 NW 160th Ave,5,3,6534.0,750000
-26,single_family,1974,18735 SW Honeywood Dr,3,2,9583.0,585000
-27,single_family,2022,86 SW Pyramid Ter,3,3,,649990
-28,single_family,1995,16721 NW Paddington Dr,3,3,5663.0,695000
-29,single_family,1989,10525 SW 161st Ct,5,3,7841.0,785000
-30,single_family,2022,65 SW Doubletop Dr Unit 65,4,3,,682990
-31,single_family,2022,12260 SW Strobel Rd,3,3,5755.0,925580
-32,townhomes,2003,16024 SW Gage Ln,3,3,871.0,439500
-33,single_family,1995,7486 SW 208th Pl,4,3,6098.0,649000
-34,condos,2005,16265 SW Blue Goose Ln,3,3,,469000
-35,single_family,1999,21581 SW Frammy Way,3,2,4792.0,599000
-36,condos,2012,11830 NW Holly Springs Ln Unit 304,2,2,,350000
-37,townhomes,1971,7460 SW Wilson Ct,2,2,,419810
-38,townhomes,2005,8700 SW 147th Ter Unit 102,2,3,,382500
-39,single_family,2022,12246 SW Strobel Rd,3,3,,930740
-40,condos,1986,9365 SW 146th Ter Apt 3,2,2,,309900
+0,single_family,1995.0,20252 SW Tremont Way,4,4.0,13068.0,1140000
+1,townhomes,1999.0,14245 SW Cougar Ridge Dr,2,3.0,1307.0,340000
+2,single_family,2003.0,20706 SW Marimar St,3,3.0,2178.0,475000
+3,single_family,1981.0,7265 SW 173rd Ave,3,2.0,7405.0,520000
+4,townhomes,2013.0,11915 SW Horizon Blvd,2,3.0,1307.0,475000
+5,single_family,2001.0,4068 NW Kino Springs Pl,4,3.0,4792.0,775000
+6,condos,1998.0,10660 SW Davies Rd Unit 41,2,2.0,,275000
+7,single_family,1960.0,12635 SW Butner Rd,3,1.0,7405.0,395000
+8,townhomes,1977.0,6732 SW Sussex St,2,2.0,1307.0,300000
+9,single_family,1956.0,13470 SW Far Vista Dr,3,2.0,68389.0,525000
+10,single_family,2007.0,7085 SW Kelsi Ter,4,4.0,5227.0,885000
+11,single_family,2002.0,17469 SW Arbutus Dr,5,5.0,17424.0,1349000
+12,single_family,1978.0,17585 NW Autumn Ridge Dr,3,2.0,7405.0,600000
+13,single_family,1963.0,13550 SW 22nd St,3,2.0,6970.0,575000
+14,single_family,1996.0,16918 SW Steele Way,3,3.0,2178.0,429000
+15,single_family,2020.0,9537 SW 171st Ave,5,4.0,4356.0,790000
+16,single_family,1952.0,965 SW Murray Blvd,3,2.0,26136.0,600000
+17,single_family,2021.0,18421 SW Sugarloaf Ln,4,3.0,3920.0,680000
+18,single_family,2017.0,15910 SW Nora Rd,5,5.0,54886.0,1650000
+19,single_family,1998.0,19072 SW Christopher Dr,3,3.0,3920.0,499000
+20,single_family,1956.0,5545 SW Dover Ln,3,2.0,10019.0,719000
+21,single_family,1978.0,16385 SW Wright St,3,2.0,7841.0,590000
+22,condos,1974.0,1605 NW Bridgeway Ln,3,3.0,,365000
+23,single_family,1988.0,16680 NW Meadow Grass Ct,3,2.0,6098.0,590000
+24,single_family,1991.0,1422 SW 178th Ave,3,2.0,5227.0,525000
+25,single_family,1972.0,3885 SW 196th Ave,3,1.0,7841.0,500000
+26,townhomes,2001.0,15934 SW Roth Dr,3,3.0,2178.0,409000
+27,single_family,2022.0,12243 SW Strobel Rd,3,3.0,3986.0,795200
+28,single_family,2022.0,12239 SW Strobel Rd,3,3.0,4361.0,842510
+29,single_family,2002.0,224 NW Prescott Pl,3,3.0,1742.0,425000
+30,single_family,1949.0,110 SW 139th Ave,3,1.0,6098.0,449500
+31,single_family,1993.0,16507 SW Timberland Dr,4,4.0,9583.0,839000
+32,single_family,2005.0,17959 SW Camas St,2,3.0,3049.0,429900
+33,single_family,1977.0,9120 SW Pony Pl,3,2.0,14375.0,650000
+34,single_family,1987.0,2260 NW 160th Ave,5,3.0,6534.0,750000
+35,single_family,1974.0,18735 SW Honeywood Dr,3,2.0,9583.0,585000
+36,single_family,2022.0,86 SW Pyramid Ter,3,3.0,,649990
+37,single_family,1995.0,16721 NW Paddington Dr,3,3.0,5663.0,695000
+38,single_family,1989.0,10525 SW 161st Ct,5,3.0,7841.0,785000
+39,single_family,2022.0,65 SW Doubletop Dr Unit 65,4,3.0,,682990
+40,single_family,2022.0,12260 SW Strobel Rd,3,3.0,5755.0,925580
+41,townhomes,2003.0,16024 SW Gage Ln,3,3.0,871.0,439500
+42,single_family,1995.0,7486 SW 208th Pl,4,3.0,6098.0,649000
+43,condos,2005.0,16265 SW Blue Goose Ln,3,3.0,,469000
+44,single_family,1999.0,21581 SW Frammy Way,3,2.0,4792.0,599000
+45,condos,2012.0,11830 NW Holly Springs Ln Unit 304,2,2.0,,350000
+46,townhomes,1971.0,7460 SW Wilson Ct,2,2.0,,419810
+47,townhomes,2005.0,8700 SW 147th Ter Unit 102,2,3.0,,382500
+48,single_family,2022.0,12246 SW Strobel Rd,3,3.0,,930740
+49,condos,1986.0,9365 SW 146th Ter Apt 3,2,2.0,,309900
+50,mobile,1976.0,375 SW Liberty Bell Dr,2,2.0,,89000
+51,single_family,2013.0,580 NW Lost Springs Ter Unit 304,2,2.0,,345000
+52,single_family,1978.0,9330 SW Downing Dr,2,2.0,3920.0,425000
+53,single_family,1995.0,3241 SW Alicia Pl,3,3.0,3920.0,449900
+54,single_family,1948.0,11725 SW 13th St,3,2.0,8276.0,500000
+55,townhomes,2022.0,17104 SW Albatross Ln Lot 4,3,3.0,2178.0,624950
+56,single_family,2014.0,10495 SW Crestwood Dr,3,3.0,4356.0,670000
+57,single_family,1967.0,6470 SW Elm Ave,3,2.0,8712.0,699000
+58,single_family,2018.0,16859 SW Larkspring Ln,4,3.0,,789000
+59,single_family,2022.0,2763 SW Maycrest Ter,3,3.0,,596950
+60,single_family,2022.0,2749 SW Maycrest Ter,3,3.0,,569950
+61,single_family,1963.0,10370 SW Cynthia St,4,2.0,18295.0,915000
+62,single_family,1989.0,754 SW 175th Pl,3,3.0,6534.0,625000
+63,single_family,1992.0,1067 SW Tobias Way,3,2.0,6098.0,549000
+64,condos,2003.0,13720 SW Scholls Ferry Rd Unit 101,3,3.0,,425000
+65,single_family,1978.0,8710 SW Indian Hill Ln,4,2.0,9583.0,544999
+66,single_family,1982.0,6723 SW 153rd Ave,3,2.0,8712.0,469900
+67,single_family,1997.0,16530 SW Whitetail Ln,5,4.0,9583.0,929900
+68,single_family,1995.0,10275 SW Shearwater Loop,4,3.0,7841.0,679000
+69,single_family,1948.0,12225 SW Greenwood St,4,2.0,9583.0,625000
+70,single_family,1987.0,7105 SW Kaufman Dr,4,3.0,5663.0,574900
+71,single_family,1997.0,19673 SW Boulder Ln,4,3.0,8276.0,799950
+72,single_family,2015.0,7235 SW Capstone Ct,3,3.0,3049.0,495000
+73,single_family,2003.0,11648 SW Waterthrush Ter,2,3.0,,439000
+74,condos,2006.0,15485 SW Sparrow Loop Unit 104,2,3.0,,359000
+75,townhomes,2005.0,2476 NW Crosswater Ter,2,3.0,1742.0,425000
+76,single_family,2005.0,13090 SW Madison Ct,4,3.0,7405.0,899500
+77,single_family,1975.0,8655 SW Parkview Loop,3,3.0,7841.0,625000
+78,single_family,1989.0,17375 NW Bernard Pl,3,2.0,7405.0,559900
+79,condos,2018.0,17182 SW Appledale Rd Unit 401,3,2.0,,399000
+80,condos,1978.0,1585 NW Eastbrook Ct,2,2.0,,310000
+81,single_family,1950.0,13895 SW Todd St,3,1.0,6098.0,489000
+82,single_family,1982.0,2435 SW 206th Pl,3,2.0,5663.0,370000
+83,townhomes,2002.0,20669 NW Painted Mountain Dr,3,3.0,3049.0,449000
+84,townhomes,2004.0,9530 SW Lodestone Dr,3,3.0,1742.0,478000
+85,condos,2007.0,680 NW Falling Waters Ln Unit 105,2,2.0,,375000
+86,townhomes,2010.0,15900 SW Marlee Ln,3,3.0,2614.0,450000
+87,single_family,1961.0,4875 SW 192nd Ave,3,2.0,11761.0,549500
+88,single_family,2003.0,6092 SW 208th Pl,3,3.0,2614.0,574900
+89,townhomes,2006.0,1272 SW 162nd Ave,2,3.0,871.0,399900
+90,condos,2007.0,675 NW Falling Waters Ln Unit 303,1,1.0,,295000
+91,condos,2014.0,13895 SW Meridian St Unit 215,2,2.0,,334900
+92,single_family,1983.0,16184 SW Deline Ct,4,2.0,6970.0,615000
+93,single_family,1956.0,5435 SW 152nd Ave,4,2.0,19602.0,620000
+94,single_family,1999.0,7765 SW Carrollon Dr,4,3.0,4792.0,679990
+95,single_family,1998.0,1167 SW 183rd Pl,3,3.0,1742.0,480000
+96,single_family,1992.0,450 NW 167th Ave,3,2.0,9583.0,650000
+97,single_family,,12400 SW Strobel Rd,3,,,755990
+98,single_family,1926.0,1940 SW 71st Ave,5,6.0,21344.0,1250000
+99,single_family,2019.0,17357 SW Dotterel Ln,4,3.0,3485.0,849900
+100,single_family,1963.0,13215 SW Evergreen St,3,3.0,7841.0,599000
+101,single_family,1982.0,8309 SW Lori Way,3,2.0,7841.0,554900
+102,single_family,1972.0,13545 SW Hart Rd,4,2.0,4800.0,589500
+103,single_family,2004.0,15726 SW Snowy Owl Ln,4,3.0,4356.0,599900
+104,condos,2006.0,12780 SW Merganser Ln,3,3.0,,489900
+105,single_family,2004.0,14415 NW Pioneer Park Way,4,3.0,4792.0,699000
+106,single_family,2014.0,14336 SW Rancher Ln,3,3.0,2614.0,609900
+107,single_family,2002.0,4339 SW Enduro Pl,3,3.0,4356.0,657000
+108,condos,1954.0,8410 SW Canyon Ln Apt 4,1,1.0,,200000
+109,condos,2005.0,14830 SW Sandhill Loop Unit 201,2,2.0,,365000
+110,single_family,2011.0,20008 SW Squire Dr,4,3.0,5663.0,659000
+111,single_family,1969.0,4600 SW 170th Ave,3,1.0,7405.0,456000
+112,single_family,1985.0,950 NW 161st Ter,4,4.0,8712.0,800000
+113,single_family,1978.0,5920 SW 161st Ave,3,3.0,8712.0,589900
+114,multi_family,1973.0,6295 SW 188th Ct,4,2.0,9999.0,550000
+115,single_family,1972.0,5065 SW Normandy Pl,2,2.0,2614.0,359000
+116,single_family,,12400 SW Strobel Rd,3,,,870990
+117,single_family,1982.0,6611 SW 153rd Ave,3,2.0,9148.0,599900
+118,single_family,,12400 SW Strobel Rd,3,,,815990
+119,single_family,1987.0,10165 SW 153rd Ave,5,4.0,6970.0,785300
+120,condos,2007.0,8838 NE Brentford Way,2,3.0,,375000
+121,single_family,2016.0,2148 NW 163rd Ter,4,3.0,3049.0,669999
+122,condos,2009.0,11845 NW Stone Mountain Ln Unit 306,1,1.0,,245000
+123,single_family,1991.0,19595 SW Hennig St,4,3.0,6534.0,575000
+124,single_family,2005.0,9288 SW Diamond View Way,4,3.0,6970.0,699999
+125,single_family,1979.0,1860 SW 192nd Ave,3,2.0,8276.0,500000
+126,townhomes,2004.0,6305 SW 208th Ter,3,3.0,1742.0,410000
+127,townhomes,2008.0,15163 SW Canyon Wren Way,3,3.0,1307.0,450000
+128,condos,1967.0,13155 SW Allen Blvd Apt 9,2,1.0,,268700
+129,single_family,1990.0,7354 SW 166th Ter,3,3.0,6098.0,700000
+130,townhomes,2018.0,13243 SW 169th Ave,2,3.0,1742.0,445000
+131,single_family,2006.0,8681 SW 184th Dr,3,3.0,6534.0,775000
+132,single_family,2003.0,20590 SW Marimar St,3,3.0,2178.0,499000
+133,single_family,1950.0,6560 SW 124th Ave,2,1.0,9148.0,350000
+134,single_family,2013.0,14250 SW Compass Dr,3,3.0,1307.0,545000
+135,single_family,1984.0,6750 SW 175th Ave,3,2.0,7841.0,525000
+136,single_family,1977.0,540 SW 191st Ave,3,2.0,8712.0,479995
+137,single_family,1973.0,2005 SW 185th Ave,2,1.0,7405.0,350000
+138,single_family,1978.0,3838 SW 205th Ave,3,2.0,7405.0,539000
+139,single_family,1993.0,16508 SW Timberland Dr,4,3.0,8276.0,749900
+140,condos,1981.0,650 SW Meadow Dr Unit 124,3,2.0,,325000
+141,mobile,1979.0,17695 SW Declaration Way,3,2.0,,129000
+142,single_family,1989.0,3959 NW Craig Dr,4,2.0,6098.0,699000
+143,single_family,1949.0,2635 SW 192nd Ave,4,2.0,9583.0,629900
+144,townhomes,1980.0,6687 SW 180th Ave,3,3.0,3920.0,520000
+145,single_family,1978.0,1020 SW 193rd Ct,3,3.0,6970.0,610000
+146,single_family,,12400 SW Strobel Rd,3,,,821990
+147,single_family,1972.0,20780 SW Wyngate St,4,2.0,9148.0,495000
+148,condos,2004.0,14705 SW Sandhill Loop Unit 204,2,2.0,,360000
+149,single_family,1950.0,11970 SW Denney Rd,2,1.0,55757.0,1575000
+150,condos,1979.0,11721 SW Boones Bend Dr Unit 9,2,1.0,,279900
+151,single_family,1960.0,15960 SW Division St,4,2.0,14375.0,599900
+152,single_family,1994.0,224 SW 212th Ave,3,3.0,6098.0,649000
+153,townhomes,2003.0,6365 SW Vinwood Ter,3,3.0,1742.0,424900
+154,single_family,2022.0,8230 SE Blanton St,3,3.0,,549990
+155,single_family,1999.0,20364 SW Inglis Dr,4,4.0,43560.0,1799000
+156,single_family,1966.0,11770 SW Blakeney St,3,3.0,6970.0,689900
+157,single_family,1977.0,20475 SW Jaylee St,5,3.0,6970.0,659950
+158,single_family,1976.0,13415 SW Barlow Rd,3,3.0,6970.0,675100
+159,condos,2007.0,760 NW 185th Ave Unit 306,2,1.0,,299000
+160,single_family,1994.0,4446 SW Appletree Pl,3,3.0,4792.0,525000
+161,condos,1986.0,9540 SW 146th Ter Apt 1,2,2.0,,299900
+162,townhomes,2003.0,7035 SW Lorna Ter,3,3.0,1742.0,395000
+163,single_family,1985.0,1235 SW 211th Pl,3,2.0,5663.0,525000
+164,single_family,1963.0,5065 SW 163rd Ave,3,2.0,7405.0,489900
+165,townhomes,2004.0,14950 SW Conor Cir,3,3.0,,430000
+166,single_family,1976.0,2185 SW 189th Ave,3,2.0,9148.0,590000
+167,single_family,1975.0,6550 SW 203rd Ave,3,2.0,8712.0,519900
+168,townhomes,2003.0,20566 NW Sedona Ln,3,3.0,2178.0,449000
+169,single_family,,12400 SW Strobel Rd,3,,,781990
+170,single_family,1986.0,6515 SW 154th Pl,4,3.0,7405.0,774900
+171,single_family,2001.0,12095 SW Fulmar Ter,4,3.0,5663.0,739900
+172,single_family,1948.0,12125 SW Greenwood St,3,2.0,9148.0,525000
+173,townhomes,2004.0,15225 SW Sparrow Loop Unit 102,2,3.0,,399000
+174,condos,1986.0,20470 SW Rosa Dr,2,2.0,,319000
+175,single_family,2019.0,16572 SW Snowdale St,4,3.0,3920.0,799000
+176,townhomes,2004.0,9515 SW 153rd Ave,3,3.0,2614.0,499000
+177,single_family,1994.0,21532 SW Samantha Ln,3,3.0,6970.0,585000
+178,single_family,1995.0,18246 SW Berg Ct,3,2.0,4356.0,525000
+179,single_family,,12400 SW Strobel Rd,3,,,860990
+180,single_family,,12400 SW Strobel Rd,3,,,821990
+181,single_family,2022.0,8842 SW 176th Ave Unit 12,4,3.0,4356.0,699950
+182,condos,2003.0,1173 NE Perl Way,3,2.0,,379000
+183,single_family,1958.0,5340 SW Dover Ln,3,3.0,10019.0,819900
+184,single_family,1988.0,10585 SW 133rd Pl,4,3.0,6970.0,700000
+185,mobile,1995.0,17473 NW Shady Fir Loop Unit 54,3,2.0,,268000
+186,townhomes,2003.0,17447 SW November Ct,3,3.0,871.0,399900
+187,single_family,1995.0,175 SW Seminole Dr,3,3.0,7405.0,499000
+188,mobile,1995.0,17495 NW Shady Fir Loop Unit 58,3,2.0,,229900
+189,single_family,,12400 SW Strobel Rd,4,,,823990
+190,single_family,1993.0,16205 SW Nighthawk Dr,5,3.0,12197.0,985000
+191,single_family,1995.0,600 NW 176th Ct,4,3.0,5227.0,550000
+192,single_family,1968.0,975 SW Perfecta Ave,3,2.0,9583.0,569000
+193,condos,2015.0,13875 SW Meridian St Unit 140,1,1.0,,275000
+194,condos,2005.0,12675 SW Night Heron Ln Unit 102,3,3.0,940.0,412000
+195,townhomes,2002.0,17481 SW October Ct,4,3.0,871.0,369000
+196,single_family,1977.0,16110 SW Rosa Rd,3,2.0,7841.0,589900
+197,townhomes,2002.0,15457 SW Bygones Ct,3,3.0,3920.0,475000
+198,single_family,1978.0,8147 SW 184th Ave,4,3.0,11761.0,649900
+199,single_family,1986.0,9060 SW Quint Ct,3,2.0,6970.0,519000
