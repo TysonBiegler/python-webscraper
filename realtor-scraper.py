@@ -107,10 +107,7 @@ json_data = {
 
 response = requests.post('https://www.realtor.com/api/v1/hulk_main_srp', params=params, headers=headers, json=json_data)
 
-result_json = response.json()
-high_level = result_json['data']
-home_search = high_level['home_search']
-result_items = home_search['results']
+result_items = response.json()['data']['home_search']['results']
 
 
 #----------------------Address info
@@ -118,7 +115,7 @@ result_items = home_search['results']
 result_items[0]['location']['address']['line']
 #city
 result_items[0]['location']['address']['city']
-#state eg: OR
+#state
 result_items[0]['location']['address']['state_code']
 #zip_code
 result_items[0]['location']['address']['postal_code']
@@ -178,5 +175,5 @@ for result in result_items:
         price.append('')
 
 df_realtor = pd.DataFrame({'Home Type': home_type, 'Year Built': year_built, 'Address': address, 'Bedrooms': bedrooms, 'Bathrooms': bathrooms, 'Square Feet': sq_foot, 'Price': price})
-
-df_realtor.to_csv(r'C:\Users\tyson\Documents\Webdev Portfolio\Python\webscraper\csv\realtor_data.csv', header=True)
+print(df_realtor)
+#df_realtor.to_csv(r'C:\Users\tyson\Documents\Webdev Portfolio\Python\webscraper\csv\realtor_data.csv', header=True)
