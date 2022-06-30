@@ -155,7 +155,7 @@ sq_foot = []
 price = []
 #cURL start from realtor.com
 for i in range(1,51):
-    asPathIncrement = (f'/{str(i)}')
+    page_increment = (f'/pg-{str(i)}')
     headers = {
         'authority': 'www.realtor.com',
         'accept': 'application/json',
@@ -223,7 +223,7 @@ for i in range(1,51):
         'visitor_id': '1ae3a798-c7a2-4fd6-bc2a-b84aec36420f',
         'isClient': True,
         'seoPayload': {
-            'asPath': (f'/realestateandhomes-search/{city}_{state}/sby-6{asPathIncrement}'), #need to add page number to the end of this so I can use a for loop to iterate through every page
+            'asPath': (f'/realestateandhomes-search/{city}_{state}/sby-6{page_increment}'),
             'pageType': {
                 'silo': 'search_result_page',
                 'status': 'for_sale',
@@ -272,4 +272,4 @@ for i in range(1,51):
 
 df_realtor = pd.DataFrame({'Home Type': home_type, 'Year Built': year_built, 'Address': address, 'Bedrooms': bedrooms, 'Bathrooms': bathrooms, 'Square Feet': sq_foot, 'Price': price})
 #print(df_realtor)
-#df_realtor.to_csv(r'C:\Users\tyson\Documents\Webdev Portfolio\Python\webscraper\csv\realtor_data.csv', header=True)
+df_realtor.to_csv(r'C:\Users\tyson\Documents\Webdev Portfolio\Python\webscraper\csv\realtor_data.csv', header=True)
