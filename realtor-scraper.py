@@ -3,8 +3,8 @@ from xml.sax.handler import property_lexical_handler
 from numpy import full
 import requests
 import pandas as pd
-from torch import are_deterministic_algorithms_enabled
 import re
+import os.path
 
 
 if 0:
@@ -386,5 +386,6 @@ for i in range(1,51):
 
 df_realtor = pd.DataFrame({'Home Type': home_type, 'Year Built': year_built, 'Address': address, 'Bedrooms': bedrooms, 'Bathrooms': bathrooms, 'Square Feet': sq_foot, 'Price': price})
 print(df_realtor)
-
-df_realtor.to_csv(r'C:\Users\tyson\Documents\Webdev Portfolio\Python\webscraper\csv\realtor_data.csv', header=True)
+#Cross-platform filepath
+fname = os.path.join('csv','realtor_data.csv')
+df_realtor.to_csv(fname, header=True)
