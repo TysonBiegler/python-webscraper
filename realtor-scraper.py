@@ -204,7 +204,7 @@ df_realtor = pd.DataFrame({'Home Type': home_type, 'Year Built': year_built, 'Ad
 #df_realtor.to_csv(r'C:\Users\tyson\Documents\Webdev Portfolio\Python\webscraper\csv\realtor_data.csv', header=True)
 
 
-#looping through the other pages -start-
+#looping through the other pages
 home_type = []
 year_built = []
 address = []
@@ -213,13 +213,11 @@ bathrooms = []
 sq_foot = []
 price = []
 
-
-
-#cURL start from realtor.com
+#cURL from realtor.com
 
 for i in range(1,51):
     page_increment = (f'/pg_{str(i)}')
-    
+    pageindex = response.json()['data']['zoho']['meta_data']['canonical_url']
     #cURL start from realtor.com
     headers = {
         'accept': 'application/json',
@@ -316,7 +314,7 @@ for i in range(1,51):
                 'location': (f'{city}'),
                 'property_status': 'for_sale',
                 'filters': {},
-                'page_index': str(i),
+                'page_index': (f'{page_increment}'),
             },
             'geoSupportedSlug': (f'{city}_{state}'),
             'sort': [
@@ -339,7 +337,7 @@ for i in range(1,51):
         'visitor_id': '1ae3a798-c7a2-4fd6-bc2a-b84aec36420f',
         'isClient': True,
         'seoPayload': {
-            'asPath': (f'/realestateandhomes-search/{city}_{state}/sby-6{page_increment}'),
+            'asPath': (f'{pageindex}{page_increment}'),
             'pageType': {
                 'silo': 'search_result_page',
                 'status': 'for_sale',
@@ -347,16 +345,12 @@ for i in range(1,51):
             'county_needed_for_uniq': False,
         },
     }
-    #response
+    
     response = requests.post('https://www.realtor.com/api/v1/hulk_main_srp', params=params, headers=headers, json=json_data)
     #cURL end from realtor.com
 
     #json object
     result_items = response.json()['data']['home_search']
-
-    pageindex = response.json()['data']['zoho']['meta_data']['canonical_url']
-    #print(f'this is the {pageindex}{page_increment}')
-
     #result items
     result_items = result_items['results']
 
