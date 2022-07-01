@@ -32,9 +32,13 @@ sq_foot = []
 price = []
 
 #cURL from realtor.com
+offset = 0
+page_len = 200
+total = 1
+count = 1
 
-for i in range(1,51):
-    page_increment = (f'/pg_{str(i)}')
+while page_len > 0:
+    page_increment = '/pg_1'
     pageindex = f'https://www.realtor.com/realestateandhomes-search/{city}_{state}' 
     headers = {
         'accept': 'application/json',
@@ -124,8 +128,8 @@ for i in range(1,51):
                     'last_view_timestamp': -1,
                 },
             },
-            'limit':200,
-            'offset': 0,
+            'limit':page_len,
+            'offset': offset,
             'zohoQuery': {
                 'silo': 'search_result_page',
                 'location': (f'{city}'),
@@ -164,10 +168,11 @@ for i in range(1,51):
     }
     
     response = requests.post('https://www.realtor.com/api/v1/hulk_main_srp', params=params, headers=headers, json=json_data)
-    #cURL end from realtor.com
 
     #json object
     result_items = response.json()['data']['home_search']
+    page_len = result_items['count']
+    offset += page_len
     #result items
     result_items = result_items['results']
 
