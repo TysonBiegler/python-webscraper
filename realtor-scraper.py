@@ -7,35 +7,93 @@ from torch import are_deterministic_algorithms_enabled
 import re
 
 
-city = input("City?: ")
-if not re.match('^[A-Za-z]*$', city):
-    print('Error! Only letters a-z allowed.')   
-state = input(f'Two Character State?: ')
-if not re.match('^[A-Za-z]*$', state):
-    print('Error! Only letters a-z allowed.')
-elif len(state)>2:
-    print('Error! Only 2 Characters allowed!')
-print(f'Looking for houses in {city}, {state}.')
+if 0:
+    city = input("City?: ")
+    if not re.match('^[A-Za-z]*$', city):
+        print('Error! Only letters a-z allowed.')   
+    state = input(f'Two Character State?: ')
+    if not re.match('^[A-Za-z]*$', state):
+        print('Error! Only letters a-z allowed.')
+    elif len(state)>2:
+        print('Error! Only 2 Characters allowed!')
+    print(f'Looking for houses in {city}, {state}.')
+else:
+    city = 'Beaverton'
+    state = 'OR'
+    print(f'Looking for houses in {city}, {state}.')
+
+
 
 #cURL start from realtor.com
 headers = {
-    'authority': 'www.realtor.com',
     'accept': 'application/json',
-    'accept-language': 'en-US,en;q=0.9',
-    'origin': 'https://www.realtor.com',
-    'referer': (f'https://www.realtor.com/realestateandhomes-search/{city}_{state}'),
-    'sec-fetch-dest': 'empty',
-    'sec-fetch-mode': 'cors',
-    'sec-fetch-site': 'same-origin',
-    'sec-gpc': '1',
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.53 Safari/537.36',
 }
 params = {
     'client_id': 'rdc-x',
     'schema': 'vesta',
 }
 json_data = {
-    'query': '\n\nquery ConsumerSearchMainQuery($query: HomeSearchCriteria!, $limit: Int, $offset: Int, $sort: [SearchAPISort], $sort_type: SearchSortType, $client_data: JSON, $bucket: SearchAPIBucket)\n{\n  home_search: home_search(query: $query,\n    sort: $sort,\n    limit: $limit,\n    offset: $offset,\n    sort_type: $sort_type,\n    client_data: $client_data,\n    bucket: $bucket,\n  ){\n    count\n    total\n    results {\n      property_id\n      list_price\n      primary_photo (https: true){\n        href\n      }\n      source {\n        id\n        agents{\n          office_name\n        }\n        type\n        spec_id\n        plan_id\n      }\n      community {\n        property_id\n        description {\n          name\n        }\n        advertisers{\n          office{\n            hours\n            phones {\n              type\n              number\n            }\n          }\n          builder {\n            fulfillment_id\n          }\n        }\n      }\n      products {\n        brand_name\n        products\n      }\n      listing_id\n      matterport\n      virtual_tours{\n        href\n        type\n      }\n      status\n      permalink\n      price_reduced_amount\n      other_listings{rdc {\n      listing_id\n      status\n      listing_key\n      primary\n    }}\n      description{\n        beds\n        baths\n        baths_full\n        baths_half\n        baths_1qtr\n        baths_3qtr\n        garage\n        stories\n        type\n        sub_type\n        lot_sqft\n        sqft\n        year_built\n        sold_price\n        sold_date\n        name\n      }\n      location{\n        street_view_url\n        address{\n          line\n          postal_code\n          state\n          state_code\n          city\n          coordinate {\n            lat\n            lon\n          }\n        }\n        county {\n          name\n          fips_code\n        }\n      }\n      tax_record {\n        public_record_id\n      }\n      lead_attributes {\n        show_contact_an_agent\n        opcity_lead_attributes {\n          cashback_enabled\n          flip_the_market_enabled\n        }\n        lead_type\n        ready_connect_mortgage {\n          show_contact_a_lender\n          show_veterans_united\n        }\n      }\n      open_houses {\n        start_date\n        end_date\n        description\n        methods\n        time_zone\n        dst\n      }\n      flags{\n        is_coming_soon\n        is_pending\n        is_foreclosure\n        is_contingent\n        is_new_construction\n        is_new_listing (days: 14)\n        is_price_reduced (days: 30)\n        is_plan\n        is_subdivision\n      }\n      list_date\n      last_update_date\n      coming_soon_date\n      photos(limit: 2, https: true){\n        href\n      }\n      tags\n      branding {\n        type\n        photo\n        name\n      }\n    }\n  }\n}',
+        #This is a graphql query, so you can change what data you get back
+    'query': '''
+query ConsumerSearchMainQuery($query: HomeSearchCriteria!, $limit: Int, $offset: Int, $sort: [SearchAPISort], $sort_type: SearchSortType, $client_data: JSON, $bucket: SearchAPIBucket)
+{
+home_search: home_search(query: $query,
+    sort: $sort,
+    limit: $limit,
+    offset: $offset,
+    sort_type: $sort_type,
+    client_data: $client_data,
+    bucket: $bucket,
+){
+    count
+    total
+    results {
+    property_id
+    list_price
+    listing_id
+    matterport
+    status
+    permalink
+    price_reduced_amount
+    description{
+    beds
+    baths
+    baths_full
+    baths_half
+    baths_1qtr
+    baths_3qtr
+    garage
+    stories
+    type
+    sub_type
+    lot_sqft
+    sqft
+    year_built
+    sold_price
+    sold_date
+    name
+    }
+    location{
+    street_view_url
+    address{
+        line
+        postal_code
+        state
+        state_code
+        city
+        coordinate {
+        lat
+        lon
+        }
+    }
+    county {
+        name
+        fips_code
+    }
+    }
+}
+}
+}''',
     'variables': {
         'query': {
             'status': [
@@ -96,11 +154,12 @@ json_data = {
 response = requests.post('https://www.realtor.com/api/v1/hulk_main_srp', params=params, headers=headers, json=json_data)
 #cURL end from realtor.com
 
-
 result_items = response.json()['data']['home_search']
 print(f'count: {result_items["count"]}')
 print(f'total: {result_items["total"]}')
 result_items = result_items['results']
+
+
 
 home_type = []
 year_built = []
@@ -153,27 +212,84 @@ bedrooms = []
 bathrooms = []
 sq_foot = []
 price = []
+
+
+
 #cURL start from realtor.com
+
 for i in range(1,51):
-    page_increment = (f'/pg-{str(i)}')
+    page_increment = (f'/pg_{str(i)}')
+    
+    #cURL start from realtor.com
     headers = {
-        'authority': 'www.realtor.com',
         'accept': 'application/json',
-        'accept-language': 'en-US,en;q=0.9',
-        'origin': 'https://www.realtor.com',
-        'referer': (f'https://www.realtor.com/realestateandhomes-search/{city}_{state}'),
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'same-origin',
-        'sec-gpc': '1',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.53 Safari/537.36',
     }
     params = {
         'client_id': 'rdc-x',
         'schema': 'vesta',
     }
     json_data = {
-        'query': '\n\nquery ConsumerSearchMainQuery($query: HomeSearchCriteria!, $limit: Int, $offset: Int, $sort: [SearchAPISort], $sort_type: SearchSortType, $client_data: JSON, $bucket: SearchAPIBucket)\n{\n  home_search: home_search(query: $query,\n    sort: $sort,\n    limit: $limit,\n    offset: $offset,\n    sort_type: $sort_type,\n    client_data: $client_data,\n    bucket: $bucket,\n  ){\n    count\n    total\n    results {\n      property_id\n      list_price\n      primary_photo (https: true){\n        href\n      }\n      source {\n        id\n        agents{\n          office_name\n        }\n        type\n        spec_id\n        plan_id\n      }\n      community {\n        property_id\n        description {\n          name\n        }\n        advertisers{\n          office{\n            hours\n            phones {\n              type\n              number\n            }\n          }\n          builder {\n            fulfillment_id\n          }\n        }\n      }\n      products {\n        brand_name\n        products\n      }\n      listing_id\n      matterport\n      virtual_tours{\n        href\n        type\n      }\n      status\n      permalink\n      price_reduced_amount\n      other_listings{rdc {\n      listing_id\n      status\n      listing_key\n      primary\n    }}\n      description{\n        beds\n        baths\n        baths_full\n        baths_half\n        baths_1qtr\n        baths_3qtr\n        garage\n        stories\n        type\n        sub_type\n        lot_sqft\n        sqft\n        year_built\n        sold_price\n        sold_date\n        name\n      }\n      location{\n        street_view_url\n        address{\n          line\n          postal_code\n          state\n          state_code\n          city\n          coordinate {\n            lat\n            lon\n          }\n        }\n        county {\n          name\n          fips_code\n        }\n      }\n      tax_record {\n        public_record_id\n      }\n      lead_attributes {\n        show_contact_an_agent\n        opcity_lead_attributes {\n          cashback_enabled\n          flip_the_market_enabled\n        }\n        lead_type\n        ready_connect_mortgage {\n          show_contact_a_lender\n          show_veterans_united\n        }\n      }\n      open_houses {\n        start_date\n        end_date\n        description\n        methods\n        time_zone\n        dst\n      }\n      flags{\n        is_coming_soon\n        is_pending\n        is_foreclosure\n        is_contingent\n        is_new_construction\n        is_new_listing (days: 14)\n        is_price_reduced (days: 30)\n        is_plan\n        is_subdivision\n      }\n      list_date\n      last_update_date\n      coming_soon_date\n      photos(limit: 2, https: true){\n        href\n      }\n      tags\n      branding {\n        type\n        photo\n        name\n      }\n    }\n  }\n}',
+            #This is a graphql query, so you can change what data you get back
+        'query': '''
+    query ConsumerSearchMainQuery($query: HomeSearchCriteria!, $limit: Int, $offset: Int, $sort: [SearchAPISort], $sort_type: SearchSortType, $client_data: JSON, $bucket: SearchAPIBucket)
+    {
+    home_search: home_search(query: $query,
+        sort: $sort,
+        limit: $limit,
+        offset: $offset,
+        sort_type: $sort_type,
+        client_data: $client_data,
+        bucket: $bucket,
+    ){
+        count
+        total
+        results {
+        property_id
+        list_price
+        listing_id
+        matterport
+        status
+        permalink
+        price_reduced_amount
+        description{
+        beds
+        baths
+        baths_full
+        baths_half
+        baths_1qtr
+        baths_3qtr
+        garage
+        stories
+        type
+        sub_type
+        lot_sqft
+        sqft
+        year_built
+        sold_price
+        sold_date
+        name
+        }
+        location{
+        street_view_url
+        address{
+            line
+            postal_code
+            state
+            state_code
+            city
+            coordinate {
+            lat
+            lon
+            }
+        }
+        county {
+            name
+            fips_code
+        }
+        }
+    }
+    }
+    }''',
         'variables': {
             'query': {
                 'status': [
@@ -237,6 +353,10 @@ for i in range(1,51):
 
     #json object
     result_items = response.json()['data']['home_search']
+
+    pageindex = response.json()['data']['zoho']['meta_data']['canonical_url']
+    #print(f'this is the {pageindex}{page_increment}')
+
     #result items
     result_items = result_items['results']
 
@@ -271,5 +391,6 @@ for i in range(1,51):
             price.append('')
 
 df_realtor = pd.DataFrame({'Home Type': home_type, 'Year Built': year_built, 'Address': address, 'Bedrooms': bedrooms, 'Bathrooms': bathrooms, 'Square Feet': sq_foot, 'Price': price})
-#print(df_realtor)
+print(df_realtor)
+
 df_realtor.to_csv(r'C:\Users\tyson\Documents\Webdev Portfolio\Python\webscraper\csv\realtor_data.csv', header=True)
