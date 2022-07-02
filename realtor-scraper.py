@@ -7,22 +7,18 @@ import re
 import os.path
 
 
-if 0:
-    city = input("City?: ")
-    if not re.match('^[A-Za-z]*$', city):
-        print('Error! Only letters a-z allowed.')   
-    state = input(f'Two Character State?: ')
-    if not re.match('^[A-Za-z]*$', state):
-        print('Error! Only letters a-z allowed.')
-    elif len(state)>2:
-        print('Error! Only 2 Characters allowed!')
-    print(f'Looking for houses in {city}, {state}.')
-else:
-    city = 'Beaverton'
-    state = 'OR'
-    print(f'Looking for houses in {city}, {state}.')
+city = input("City?: ")
+if not re.match('^[A-Za-z]*$', city):
+    print('Error! Only letters a-z allowed.')
+state = input(f'Two Character State?: ')
+if not re.match('^[A-Za-z]*$', state):
+    print('Error! Only letters a-z allowed.')
+elif len(state) > 2:
+    print('Error! Only 2 Characters allowed!')
+print(f'Looking for houses in {city}, {state}.')
 
-#looping through the other pages
+
+# looping through the other pages
 home_type = []
 year_built = []
 address = []
@@ -31,7 +27,7 @@ bathrooms = []
 sq_foot = []
 price = []
 
-#cURL from realtor.com
+# cURL from realtor.com
 offset = 0
 page_len = 200
 total = 1
@@ -39,7 +35,7 @@ count = 1
 
 while page_len > 0:
     page_increment = '/pg_1'
-    pageindex = f'https://www.realtor.com/realestateandhomes-search/{city}_{state}' 
+    pageindex = f'https://www.realtor.com/realestateandhomes-search/{city}_{state}'
     headers = {
         'accept': 'application/json',
     }
@@ -48,7 +44,7 @@ while page_len > 0:
         'schema': 'vesta',
     }
     json_data = {
-            #This is a graphql query, so you can change what data you get back
+        # This is a graphql query, so you can change what data you get back
         'query': '''
     query ConsumerSearchMainQuery($query: HomeSearchCriteria!, $limit: Int, $offset: Int, $sort: [SearchAPISort], $sort_type: SearchSortType, $client_data: JSON, $bucket: SearchAPIBucket)
     {
@@ -128,7 +124,7 @@ while page_len > 0:
                     'last_view_timestamp': -1,
                 },
             },
-            'limit':page_len,
+            'limit': page_len,
             'offset': offset,
             'zohoQuery': {
                 'silo': 'search_result_page',
@@ -166,14 +162,15 @@ while page_len > 0:
             'county_needed_for_uniq': False,
         },
     }
-    
-    response = requests.post('https://www.realtor.com/api/v1/hulk_main_srp', params=params, headers=headers, json=json_data)
 
-    #json object
+    response = requests.post('https://www.realtor.com/api/v1/hulk_main_srp',
+                             params=params, headers=headers, json=json_data)
+
+    # json object
     result_items = response.json()['data']['home_search']
     page_len = result_items['count']
     offset += page_len
-    #result items
+    # result items
     result_items = result_items['results']
 
     for result in result_items:
@@ -206,8 +203,11 @@ while page_len > 0:
         except:
             price.append('')
 
-df_realtor = pd.DataFrame({'Home Type': home_type, 'Year Built': year_built, 'Address': address, 'Bedrooms': bedrooms, 'Bathrooms': bathrooms, 'Square Feet': sq_foot, 'Price': price})
+
+df_realtor = pd.DataFrame({'Home Type': home_type, 'Year Built': year_built, 'Address': address,
+                          'Bedrooms': bedrooms, 'Bathrooms': bathrooms, 'Square Feet': sq_foot, 'Price': price})
+
 print(df_realtor)
-#Cross-platform filepath
-fname = os.path.join('csv','realtor_data.csv')
+# Cross-platform filepath
+fname = os.path.join('csv', (f'realtor_data_{city}_{state}.csv'))
 df_realtor.to_csv(fname, header=True)
