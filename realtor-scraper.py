@@ -1,7 +1,7 @@
 import requests
 import pandas as pd
-from torch import are_deterministic_algorithms_enabled
 import re
+import os.path
 
 
 if 0:
@@ -19,188 +19,6 @@ else:
     state = 'OR'
     print(f'Looking for houses in {city}, {state}.')
 
-
-
-#cURL start from realtor.com
-headers = {
-    'accept': 'application/json',
-}
-params = {
-    'client_id': 'rdc-x',
-    'schema': 'vesta',
-}
-json_data = {
-        #This is a graphql query, so you can change what data you get back
-    'query': '''
-query ConsumerSearchMainQuery($query: HomeSearchCriteria!, $limit: Int, $offset: Int, $sort: [SearchAPISort], $sort_type: SearchSortType, $client_data: JSON, $bucket: SearchAPIBucket)
-{
-home_search: home_search(query: $query,
-    sort: $sort,
-    limit: $limit,
-    offset: $offset,
-    sort_type: $sort_type,
-    client_data: $client_data,
-    bucket: $bucket,
-){
-    count
-    total
-    results {
-    property_id
-    list_price
-    listing_id
-    matterport
-    status
-    permalink
-    price_reduced_amount
-    description{
-    beds
-    baths
-    baths_full
-    baths_half
-    baths_1qtr
-    baths_3qtr
-    garage
-    stories
-    type
-    sub_type
-    lot_sqft
-    sqft
-    year_built
-    sold_price
-    sold_date
-    name
-    }
-    location{
-    street_view_url
-    address{
-        line
-        postal_code
-        state
-        state_code
-        city
-        coordinate {
-        lat
-        lon
-        }
-    }
-    county {
-        name
-        fips_code
-    }
-    }
-}
-}
-}''',
-    'variables': {
-        'query': {
-            'status': [
-                'for_sale',
-                'ready_to_build',
-            ],
-            'primary': True,
-            'search_location': {
-                'location': (f'{city}, {state}'),
-            },
-        },
-        'client_data': {
-            'device_data': {
-                'device_type': 'web',
-            },
-            'user_data': {
-                'last_view_timestamp': -1,
-            },
-        },
-        'limit':200,
-        'offset': 0,
-        'zohoQuery': {
-            'silo': 'search_result_page',
-            'location': (f'{city}'),
-            'property_status': 'for_sale',
-            'filters': {},
-            'page_index': '1',
-        },
-        'geoSupportedSlug': (f'{city}_{state}'),
-        'sort': [
-            {
-                'field': 'list_date',
-                'direction': 'desc',
-            },
-            {
-                'field': 'photo_count',
-                'direction': 'desc',
-            },
-        ],
-        'by_prop_type': [
-            'home',
-        ],
-    },
-    'operationName': 'ConsumerSearchMainQuery',
-    'callfrom': 'SRP',
-    'nrQueryType': 'MAIN_SRP',
-    'visitor_id': '1ae3a798-c7a2-4fd6-bc2a-b84aec36420f',
-    'isClient': True,
-    'seoPayload': {
-        'asPath': (f'/realestateandhomes-search/{city}_{state}/sby-6'), #need to add page number to the end of this so I can use a for loop to iterate through every page
-        'pageType': {
-            'silo': 'search_result_page',
-            'status': 'for_sale',
-        },
-        'county_needed_for_uniq': False,
-    },
-}
-response = requests.post('https://www.realtor.com/api/v1/hulk_main_srp', params=params, headers=headers, json=json_data)
-#cURL end from realtor.com
-
-result_items = response.json()['data']['home_search']
-print(f'count: {result_items["count"]}')
-print(f'total: {result_items["total"]}')
-result_items = result_items['results']
-
-
-
-home_type = []
-year_built = []
-address = []
-bedrooms = []
-bathrooms = []
-sq_foot = []
-price = []
-
-for result in result_items:
-    try:
-        home_type.append(result['description']['type'])
-    except:
-        home_type.append('')
-    try:
-        year_built.append(result['description']['year_built'])
-    except:
-        year_built.append('')
-    try:
-        address.append(result['location']['address']['line'])
-    except:
-        address.append('')
-    try:
-        bedrooms.append(result['description']['beds'])
-    except:
-        bedrooms.append('')
-    try:
-        bathrooms.append(result['description']['baths'])
-    except:
-        bathrooms.append('')
-    try:
-        sq_foot.append(result['description']['lot_sqft'])
-    except:
-        sq_foot.append('')
-    try:
-        price.append(result['list_price'])
-    except:
-        price.append('')
-
-df_realtor = pd.DataFrame({'Home Type': home_type, 'Year Built': year_built, 'Address': address, 'Bedrooms': bedrooms, 'Bathrooms': bathrooms, 'Square Feet': sq_foot, 'Price': price})
-#print(df_realtor)
-#df_realtor.to_csv(r'C:\Users\tyson\Documents\Webdev Portfolio\Python\webscraper\csv\realtor_data.csv', header=True)
-
-
 #looping through the other pages
 home_type = []
 year_built = []
@@ -211,11 +29,14 @@ sq_foot = []
 price = []
 
 #cURL from realtor.com
+offset = 0
+page_len = 200
+total = 1
+count = 1
 
-for i in range(1,51):
-    page_increment = (f'/pg_{str(i)}')
-    pageindex = response.json()['data']['zoho']['meta_data']['canonical_url']
-    #cURL start from realtor.com
+while page_len > 0:
+    page_increment = '/pg_1'
+    pageindex = f'https://www.realtor.com/realestateandhomes-search/{city}_{state}' 
     headers = {
         'accept': 'application/json',
     }
@@ -304,8 +125,8 @@ for i in range(1,51):
                     'last_view_timestamp': -1,
                 },
             },
-            'limit':200,
-            'offset': 0,
+            'limit':page_len,
+            'offset': offset,
             'zohoQuery': {
                 'silo': 'search_result_page',
                 'location': (f'{city}'),
@@ -344,10 +165,11 @@ for i in range(1,51):
     }
     
     response = requests.post('https://www.realtor.com/api/v1/hulk_main_srp', params=params, headers=headers, json=json_data)
-    #cURL end from realtor.com
 
     #json object
     result_items = response.json()['data']['home_search']
+    page_len = result_items['count']
+    offset += page_len
     #result items
     result_items = result_items['results']
 
@@ -383,5 +205,6 @@ for i in range(1,51):
 
 df_realtor = pd.DataFrame({'Home Type': home_type, 'Year Built': year_built, 'Address': address, 'Bedrooms': bedrooms, 'Bathrooms': bathrooms, 'Square Feet': sq_foot, 'Price': price})
 print(df_realtor)
-
-df_realtor.to_csv(r'C:\Users\tyson\Documents\Webdev Portfolio\Python\webscraper\csv\realtor_data.csv', header=True)
+#Cross-platform filepath
+fname = os.path.join('csv','realtor_data.csv')
+df_realtor.to_csv(fname, header=True)
