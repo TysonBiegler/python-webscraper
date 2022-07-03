@@ -6,19 +6,22 @@ import pandas as pd
 import re
 import os.path
 
-
-city = input("City?: ")
-if not re.match('^[A-Za-z]*$', city):
-    print('Error! Only letters a-z allowed.')
-state = input(f'Two Character State?: ')
-if not re.match('^[A-Za-z]*$', state):
-    print('Error! Only letters a-z allowed.')
-elif len(state) > 2:
-    print('Error! Only 2 Characters allowed!')
-print(f'Looking for houses in {city}, {state}.')
-
+if 0:
+    city = input("City?: ")
+    if not re.match('^[A-Za-z]*$', city):
+        print('Error! Only letters a-z allowed.')
+    state = input(f'Two Character State?: ')
+    if not re.match('^[A-Za-z]*$', state):
+        print('Error! Only letters a-z allowed.')
+    elif len(state) > 2:
+        print('Error! Only 2 Characters allowed!')
+    print(f'Looking for houses in {city}, {state}.')
+else:
+    city = 'Beaverton'
+    state = 'OR'
 
 # looping through the other pages
+agent = []
 home_type = []
 year_built = []
 address = []
@@ -26,6 +29,8 @@ bedrooms = []
 bathrooms = []
 sq_foot = []
 price = []
+sold_date = []
+sold_price = []
 
 # cURL from realtor.com
 offset = 0
@@ -175,6 +180,10 @@ while page_len > 0:
 
     for result in result_items:
         try:
+            agent.append(result['Branding']['0']['name'])
+        except:
+            agent.append('')
+        try:
             home_type.append(result['description']['type'])
         except:
             home_type.append('')
@@ -202,12 +211,20 @@ while page_len > 0:
             price.append(result['list_price'])
         except:
             price.append('')
+        try:
+            sold_date.append(result['description']['sold_date'])
+        except:
+            sold_date.append('')
+        try:
+            sold_price.append(result['description']['sold_price'])
+        except:
+            sold_price.append('')
+        
 
 
-df_realtor = pd.DataFrame({'Home Type': home_type, 'Year Built': year_built, 'Address': address,
-                          'Bedrooms': bedrooms, 'Bathrooms': bathrooms, 'Square Feet': sq_foot, 'Price': price})
-
-print(df_realtor)
+df_realtor = pd.DataFrame({'Agent': agent, 'Home Type': home_type, 'Year Built': year_built, 'Address': address,
+                          'Bedrooms': bedrooms, 'Bathrooms': bathrooms, 'Square Feet': sq_foot, 'Price': price, 'Sold Date': sold_date, 'Sold Price': sold_price})
+#print(df_realtor)
 # Cross-platform filepath
 fname = os.path.join('csv', (f'realtor_data_{city}_{state}.csv'))
 df_realtor.to_csv(fname, header=True)
