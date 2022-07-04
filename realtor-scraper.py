@@ -20,8 +20,7 @@ else:
     city = 'Beaverton'
     state = 'OR'
 
-# looping through the other pages
-agent = []
+
 home_type = []
 year_built = []
 address = []
@@ -32,7 +31,7 @@ price = []
 sold_date = []
 sold_price = []
 
-# cURL from realtor.com
+
 offset = 0
 page_len = 200
 total = 1
@@ -180,10 +179,6 @@ while page_len > 0:
 
     for result in result_items:
         try:
-            agent.append(result['Branding']['0']['name'])
-        except:
-            agent.append('')
-        try:
             home_type.append(result['description']['type'])
         except:
             home_type.append('')
@@ -219,12 +214,11 @@ while page_len > 0:
             sold_price.append(result['description']['sold_price'])
         except:
             sold_price.append('')
-        
 
 
-df_realtor = pd.DataFrame({'Agent': agent, 'Home Type': home_type, 'Year Built': year_built, 'Address': address,
-                          'Bedrooms': bedrooms, 'Bathrooms': bathrooms, 'Square Feet': sq_foot, 'Price': price, 'Sold Date': sold_date, 'Sold Price': sold_price})
-#print(df_realtor)
+df_realtor = pd.DataFrame({'Home Type': home_type, 'Year Built': year_built, 'Address': address, 'Bedrooms': bedrooms,
+                          'Bathrooms': bathrooms, 'Square Feet': sq_foot, 'Price': price, 'Sold Date': sold_date, 'Sold Price': sold_price})
+# print(df_realtor)
 # Cross-platform filepath
 fname = os.path.join('csv', (f'realtor_data_{city}_{state}.csv'))
 df_realtor.to_csv(fname, header=True)
